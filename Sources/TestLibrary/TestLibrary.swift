@@ -16,7 +16,11 @@ public extension Image {
 }
 
 public class TestLibrary {
+    var name = "TEST"
     // This is here so we can pull bundle module
+    public init() {
+        
+    }
 }
 
 public extension Bundle {
