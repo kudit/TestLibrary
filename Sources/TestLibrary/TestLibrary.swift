@@ -10,7 +10,6 @@ public extension String {
     }
 }
 
-@available(iOS 13.0, *)
 public extension Image {
     static var testImage = Image("test", bundle: Bundle.module)
 }
@@ -26,4 +25,32 @@ public class TestLibrary {
 public extension Bundle {
     static var testBundleModule = Bundle.module
     static var testLibrary = Bundle(for: TestLibrary.self)
+}
+
+struct TestImageView: View {
+    var body: some View {
+        VStack {
+            Image(systemName: "star.fill")
+                .foregroundStyle(.yellow)
+            Image(systemName: "test")
+                .foregroundStyle(.green)
+            Image("test")
+                .foregroundStyle(.green)
+            Image("test", bundle: Bundle.module)
+                .foregroundColor(.mint)
+            Image("test", bundle: Bundle(for: TestLibrary.self))
+                .foregroundColor(.pink)
+            Image("test", bundle: .testLibrary)
+                .foregroundStyle(.blue)
+            Image("test", bundle: .testBundleModule)
+                .foregroundStyle(.orange)
+            Image.testImage
+                .foregroundStyle(.purple)
+        }
+        .font(.largeTitle)
+    }
+}
+
+#Preview {
+    TestImageView()
 }
