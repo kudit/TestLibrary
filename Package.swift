@@ -16,8 +16,8 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "TestLibrary",
-//            resources: [.process("Resources/Media.xcassets")]
-            resources: [.process("Resources/Media.xcassets/test.symbolset")]
+            resources: [.process("Resources/Media.xcassets")]
+//            resources: [.process("Resources/Media.xcassets/test.symbolset")]
         ),
         .testTarget(
             name: "TestLibraryTests",
