@@ -20,8 +20,8 @@ let package = Package(
         .target(
             name: "TestLibrary",
 //            resources: [.copy("Resources/Media.xcassets")]
-            resources: [.copy("Resources/Media.xcassets/test.symbolset")]
-//            resources: [.process("Resources/Media.xcassets/test.symbolset/test.svg")]
+//            resources: [.copy("Resources/Media.xcassets/test.symbolset")]
+            resources: [.process("Resources/Media.xcassets/test.symbolset/test.svg")]
         ),
         .testTarget(
             name: "TestLibraryTests",
