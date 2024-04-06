@@ -27,9 +27,9 @@ public extension Bundle {
     static var testLibrary = Bundle(for: TestLibrary.self)
 }
 
-struct TestImageView: View {
-    var body: some View {
-        VStack {
+public struct TestImageView: View {
+    public var body: some View {
+        HStack {
             Image(systemName: "star.fill")
                 .foregroundStyle(.yellow)
             Image(systemName: "test")
