@@ -28,6 +28,7 @@ public extension Bundle {
 }
 
 public struct TestImageView: View {
+    public init() {}
     public var body: some View {
         HStack {
             Image(systemName: "star.fill")
