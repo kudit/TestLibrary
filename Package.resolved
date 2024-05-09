@@ -1,0 +1,15 @@
+{
+  "originHash" : "074d5a63a5d820ffe7b4ae59435dfcfe7812ec3fdd5453a7f0d485de89972e19",
+  "pins" : [
+    {
+      "identity" : "device",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kudit/Device",
+      "state" : {
+        "revision" : "be0c640fdcbee598389901af7c90d6886d5aa2fc",
+        "version" : "2.1.5"
+      }
+    }
+  ],
+  "version" : 3
+}

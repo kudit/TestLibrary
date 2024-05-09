@@ -7,7 +7,10 @@ let package = Package(
     name: "TestLibrary",
     platforms: [
         .iOS("15.2"),
-        .macOS("12.0"),
+        .macOS("14.3"),
+        .tvOS("15.0"),
+        .watchOS("8.0"),
+        .visionOS("1.0")
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -15,20 +18,17 @@ let package = Package(
             name: "TestLibrary",
             targets: ["TestLibrary"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/kudit/Device", "2.0.7"..<"3.0.0")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "TestLibrary",
-//            resources: [.process("Resources/")]
-            resources: [.process("Resources")]
-//            resources: [.process("Resources/Media.xcassets/")]
-//            resources: [.copy("Resources/Media.xcassets")]
-//            resources: [.copy("Resources/Media.xcassets/test.symbolset")]
-//            resources: [.process("Resources/Media.xcassets/test.symbolset/test.svg")]
-        ),
-        .testTarget(
-            name: "TestLibraryTests",
-            dependencies: ["TestLibrary"]),
+            dependencies: [
+                .product(name: "Device Library", package: "device"), // apparently needs to be lowercase
+            ]
+        )
     ]
 )
