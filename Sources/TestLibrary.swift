@@ -7,10 +7,10 @@
 import Foundation
 import Device
 
-struct TestLibrary {
-    static var version = "1.4.16"
+public struct TestLibrary {
+    public static var version = "1.5.0"
     
-    static var description: String {
+    public static var description: String {
         return "Test Library v\(TestLibrary.version)\nDevice v\(Device.version)"
     }
 }
