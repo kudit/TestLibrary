@@ -1,4 +1,7 @@
 import SwiftUI
+#if canImport(TestLibrary)
+import TestLibrary
+#endif
 #if canImport(Device)
 import Device
 #endif
@@ -12,7 +15,7 @@ struct TestApp: App {
         WindowGroup {
             if #available(watchOS 8.0, tvOS 15.0, macOS 12.0, *) {
                 VStack {
-                    Text("Test Library")
+                    Text("Test: \(TestLibrary.description)")
                     Text("Device inclusion v\(Device.version)")
                 }
             } else {

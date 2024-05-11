@@ -11,6 +11,6 @@ public struct TestLibrary {
     public static var version = "1.5.0"
     
     public static var description: String {
-        return "Test Library v\(TestLibrary.version)\nDevice v\(Device.version)"
+        return "Tests Library v\(TestLibrary.version)\nDevice v\(Device.version)"
     }
 }

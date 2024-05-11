@@ -15,15 +15,16 @@ let package = Package(
         .iOS("15.2")
     ],
     products: [
+        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "TestLibrary Library",
+            name: "TestLibrary Library", // has to be named different from the iOSApplication or Swift Playgrounds won't open correctly
             targets: ["TestLibrary"]
         ),
         .iOSApplication(
-            name: "TestLibrary",
+            name: "TestLibrary", // needs to match package name to open properly in Swift Playgrounds
             targets: ["TestAppModule"],
             teamIdentifier: "3QPV894C33",
-            displayVersion: "1.5.0",
+            displayVersion: "1.5.1",
             bundleVersion: "1",
             appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.blue),
@@ -41,15 +42,19 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/kudit/Device", "2.0.7"..<"3.0.0")
+        .package(url: "https://github.com/kudit/Device", "2.1.4"..<"3.0.0")
     ],
     targets: [
+        // Targets are the basic building blocks of a package, defining a module or a test suite.
+        // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "TestLibrary",
             dependencies: [
                 .product(name: "Device Library", package: "device")
             ],
             path: "Sources"
+            // If resources need to be included, include here
+//            resources: [.process("Resources")]
         ),
         .executableTarget(
             name: "TestAppModule",
@@ -60,12 +65,9 @@ let package = Package(
         )
     ]
 )
-#else // for Swift Package compiling for https://swiftpackageindex.com/add-a-package
+#else // for Swift Package compiling for https://swiftpackageindex.com/add-a-package (not used when importing in Playgrounds.  Uses above)
 let package = Package(
     name: "TestLibrary PACKAGE",
-    platforms: [
-        .iOS("15.2")
-    ],
     products: [
         .library(
             name: "TestLibrary PACKAGE Library",
@@ -79,7 +81,7 @@ let package = Package(
         .target(
             name: "TestLibrary PACKAGE",
             dependencies: [
-                .product(name: "Device Library", package: "device")
+                .product(name: "Device Library", package: "device"), // apparently needs to be lowercase.  Also note this is "Device Library" not "Device"
             ],
             path: "Sources"
         ),
