@@ -6,85 +6,75 @@
 // Do not edit it by hand because the contents will be replaced.
 
 import PackageDescription
+
+var packageLibraryName = "TestLibrary"
+
+// Products define the executables and libraries a package produces, making them visible to other packages.
+var products = [
+	Product.library(
+        name: "\(packageLibraryName) Library", // has to be named different from the iOSApplication or Swift Playgrounds won't open correctly
+        targets: [packageLibraryName]
+    ),
+]
+
+// Targets are the basic building blocks of a package, defining a module or a test suite.
+// Targets can depend on other targets in this package and products from dependencies.
+var targets = [
+	Target.target(
+		name: packageLibraryName,
+		dependencies: [
+			.product(name: "Device Library", package: "device"), // apparently needs to be lowercase.  Also note this is "Device Library" not "Device"
+		],
+		path: "Sources"
+	),
+]
+
 #if canImport(AppleProductTypes) // swift package dump-package fails because of this
 import AppleProductTypes
 
+products += [
+	.iOSApplication(
+		name: packageLibraryName, // needs to match package name to open properly in Swift Playgrounds
+		targets: ["\(packageLibraryName)TestAppModule"],
+		teamIdentifier: "3QPV894C33",
+		displayVersion: "1.5.2",
+		bundleVersion: "1",
+		appIcon: .asset("AppIcon"),
+		accentColor: .presetColor(.blue),
+		supportedDeviceFamilies: [
+			.pad,
+			.phone
+		],
+		supportedInterfaceOrientations: [
+			.portrait,
+			.landscapeRight,
+			.landscapeLeft,
+			.portraitUpsideDown(.when(deviceFamilies: [.pad]))
+		],
+		appCategory: .developerTools
+	),
+]
+
+targets += [
+	.executableTarget(
+		name: "\(packageLibraryName)TestAppModule",
+		dependencies: [
+			.init(stringLiteral: packageLibraryName), // have to use init since normally would be assignable by string literal
+		],
+		path: "Development"
+	)
+]
+
+#endif // for Swift Package compiling for https://swiftpackageindex.com/add-a-package
+
 let package = Package(
-    name: "TestLibrary",
+    name: packageLibraryName,
     platforms: [
         .iOS("15.2")
     ],
-    products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "TestLibrary Library", // has to be named different from the iOSApplication or Swift Playgrounds won't open correctly
-            targets: ["TestLibrary"]
-        ),
-        .iOSApplication(
-            name: "TestLibrary", // needs to match package name to open properly in Swift Playgrounds
-            targets: ["TestAppModule"],
-            teamIdentifier: "3QPV894C33",
-            displayVersion: "1.5.1",
-            bundleVersion: "1",
-            appIcon: .asset("AppIcon"),
-            accentColor: .presetColor(.blue),
-            supportedDeviceFamilies: [
-                .pad,
-                .phone
-            ],
-            supportedInterfaceOrientations: [
-                .portrait,
-                .landscapeRight,
-                .landscapeLeft,
-                .portraitUpsideDown(.when(deviceFamilies: [.pad]))
-            ],
-            appCategory: .developerTools
-        )
-    ],
+    products: products,
     dependencies: [
         .package(url: "https://github.com/kudit/Device", "2.1.4"..<"3.0.0")
     ],
-    targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "TestLibrary",
-            dependencies: [
-                .product(name: "Device Library", package: "device")
-            ],
-            path: "Sources"
-            // If resources need to be included, include here
-//            resources: [.process("Resources")]
-        ),
-        .executableTarget(
-            name: "TestAppModule",
-            dependencies: [
-                "TestLibrary"
-            ],
-            path: "Development"
-        )
-    ]
+    targets: targets
 )
-#else // for Swift Package compiling for https://swiftpackageindex.com/add-a-package (not used when importing in Playgrounds.  Uses above)
-let package = Package(
-    name: "TestLibrary PACKAGE",
-    products: [
-        .library(
-            name: "TestLibrary PACKAGE Library",
-            targets: ["TestLibrary PACKAGE"]
-        ),
-    ],
-    dependencies: [
-        .package(url: "https://github.com/kudit/Device", "2.0.7"..<"3.0.0")
-    ],
-    targets: [
-        .target(
-            name: "TestLibrary PACKAGE",
-            dependencies: [
-                .product(name: "Device Library", package: "device"), // apparently needs to be lowercase.  Also note this is "Device Library" not "Device"
-            ],
-            path: "Sources"
-        ),
-    ]
-)
-#endif
